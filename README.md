@@ -1,0 +1,2 @@
+# HomeworkBuddy
+Homework Management System
