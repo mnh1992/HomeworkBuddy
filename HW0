@@ -1,0 +1,23 @@
+1. Contributor Name: Maheshi Hemachandra
+   Collabrator name: Iman Khalil
+
+2. Project Proposal for Homework Management System
+                        WhiteBoard
+WhiteBoard is a homework management system for college students and teachers. This system will allow teachers
+to post homework for different classes, and the homework will be automatically added to every student’s account 
+with an auto generated email notification. Upon registration, students will select their school and the courses 
+they are taking while teachers will select their school and courses they are teaching. For each homework, students 
+will be able to store related resources such as notes, links, files etc. In addition, students will have the ability 
+to share the resources with a group of students of their choice. This system will allow students and teachers to manage 
+the discussions per homework basis. Also, teachers and students will have the option to receive email notifications 
+related to discussions. Students will have the option to receive homework deadline alerts via email. There will also be 
+a discussion board where students could post and answer questions about homework assignments and projects, as well as 
+share a virtual whiteboard where they can work out problems together. In summary, WhiteBoard will include most of the 
+features currently available in Blackboard and Piazza with additional features that are not available in those systems.
+Technically, the system uses the JournalTOCs API to embed the searching functionality within the website. 
+MatchCollege API can be used to retrieve information about the US colleges and universities. Also, 
+DOForms API is used to collect and store user information retrieved through forms. 
+
+3. URL for github repository: https://github.com/mnh1992/WhiteBoard
+
+4. URL for GitHub Pages website: http://mnh1992.github.io/WhiteBoard
