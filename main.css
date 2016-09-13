@@ -192,12 +192,3 @@ h2{
 	
 	clear:both;
 }
-
-.header img {
-	float: left;
-	width: 200px;
-	height: 100px;
-	background: #ffffff;
-	z-index: 0;
-	opacity: 1;
-}
