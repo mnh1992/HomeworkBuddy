@@ -1,2 +1,2 @@
-# HomeworkBuddy
+# WhiteBoard
 Homework Management System
