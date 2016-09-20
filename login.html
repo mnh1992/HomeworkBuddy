@@ -1,18 +1,18 @@
-<!-- This is the form to be used to login for WhiteBoard
-In this form the user has to input the required username and password
-to login for WhiteBoard site-->
+<!-- This is the form to be used to signup for WhiteBoard
+In this form the user has to input the college, course_id and name and 
+other info required for signup -->
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" name="viewport" content="width=device-width; initial-scale=1.0" />
 	<title>WhiteBoard Site</title>
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
 	<div class="header">
-        <img src="wblogo.png" alt="logo" />
+	<a href="landingpage.html"><img src="wblogo.png" alt="logo" /></a>
         </div>	
 </head>
-<body>
+<body">
 	<div class="container">
 	<header>
 	<h1>WhiteBoard Login</h1>
@@ -33,12 +33,14 @@ to login for WhiteBoard site-->
 		<label for="password">Password: </label>
 		<input type="password" id="password" name="pword">
 		</div>
-		<div>
+		<div id="btn2">
 		<button type="submit">Submit</button>
 		</div>
-	</form>
+	</form>	
 	</div>
 	<footer>Copyright @ WhiteBoard.com</footer>
 	</div>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="jmain.js"></script>
 </body>
 </html>
