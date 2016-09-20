@@ -6,10 +6,15 @@ other info required for signup -->
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="HandheldFriendly" content="true">
 	<title>WhiteBoard Site</title>
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
 	<div class="header">
-	<img src="wblogo.png" alt="logo" />
+	<div id="image">
+	<a href="landingpage.html"><img src="wblogo.png" alt="logo" /></a>
+	</div>
 	</div>
 </head>
 <body>
@@ -60,12 +65,14 @@ other info required for signup -->
 		<label for="lname">Last Name:</label>
 		<input type="text" id="lname" name="lastname" placeholder="Your last name goes here">
 		</div>
-		<div>
+		<div id="btn1">
 		<button type="submit">Submit</button>
 		</div>
 	</form>
 	</div>
 	<footer>Copyright @ WhiteBoard.com</footer>
 	</div>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="jmain.js"></script>
 </body>
 </html>
