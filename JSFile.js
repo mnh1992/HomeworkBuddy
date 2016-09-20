@@ -1,6 +1,6 @@
 var about = document.getElementById("about_us");
 var aboutListContents = ["Motivation", "Vision", "Careers"];
-var list = document.createElement("ul");
+var list = document.createElement("ol");
 
 about.onmousedown = function (){
 	
