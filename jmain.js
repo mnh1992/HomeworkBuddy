@@ -2,8 +2,10 @@
 $(document).ready(function(){
     $('#btn1').click(function(fname, lname){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
-	firebase.database().ref('users/' + fname).set({
-	lname: lname
+	firebase.database().ref().child('users').push(
+	{ 
+		fname: fname.value, 
+		lname: lname.value
 	});    
     });
 });
@@ -15,10 +17,20 @@ $(document).ready(function(){
 	});
 });
 
-function writeUserData(userId, name, email, imageUrl) {
-firebase.database().ref('users/' + userId).set({
-username: name,
-email: email,
-profile_picture : imageUrl
-});
-}
+//function writeUserData(userId, name, email, imageUrl) {
+//firebase.database().ref('users/' + userId).set({
+//username: name,
+//email: email,
+//profile_picture : imageUrl
+//});
+//}
+
+//$(document).ready(function(){
+//    $('#btn1').click(function(fname, lname){
+	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
+//	firebase.database().ref('users/' + fname).set({
+//	lname: lname
+//	});    
+//    });
+//});
+
