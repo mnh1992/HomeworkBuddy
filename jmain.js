@@ -4,8 +4,8 @@ $(document).ready(function(){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
 	firebase.database().ref().child('users').push(
 	{ 
-		fname: fname.value, 
-		lname: lname.value
+		first: fname.value, 
+		last: lname.value
 	});    
     });
 });
