@@ -1,7 +1,7 @@
 //Greet the user when filled out the login page info and hit enter button
 $(document).ready(function(){
     $('#btn1').click(function(){
-	window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname);
+	window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
 	});
 });
 
