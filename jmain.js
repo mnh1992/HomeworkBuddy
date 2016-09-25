@@ -1,7 +1,7 @@
 //Greet the user when filled out the login page info and hit enter button
 $(document).ready(function(){
     $('#btn1').click(function(){
-	window.alert("You successfully created an account on WhiteBoard!!!");
+	window.alert("univ" + search_univ + "class" + search_class + "teacher/stu" + teach_learn);
 	});
 });
 
@@ -11,3 +11,11 @@ $(document).ready(function(){
 	window.alert("Successfully entered your account");
 	});
 });
+
+function writeUserData(userId, name, email, imageUrl) {
+firebase.database().ref('users/' + userId).set({
+username: name,
+email: email,
+profile_picture : imageUrl
+});
+}
