@@ -5,7 +5,7 @@ var usersRef = ref.child("users");
 $(document).ready(function(){
     $('#btn1').click(function(fname, lname){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
-	userref.push(
+	usersRef.push(
 	{ 
 		first: "Hello", 
 		last: "World"
