@@ -4,13 +4,15 @@ var myFirebaseRef = new Firebase("https://whiteboard-10ec5.firebaseio.com/");
 $(document).ready(function(){
     $('#btn1').click(function(fname, lname){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
-	myFirebaseRef.ref().push(
+	myFirebaseRef.push(
 	{ 
-		first: fname.value, 
-		last: lname.value
+		first: "Hello", 
+		last: "World"
 	});    
     });
 });
+
+
 
 //Greet the user for creating an account at WhiteBoard
 $(document).ready(function(){
