@@ -3,7 +3,7 @@ var usersRef = ref.child("users");
 
 //Greet the user when filled out the login page info and hit enter button
 $(document).ready(function(){
-    $('#btn1').click(function(fname, lname){
+    $('#btn1').click(function(){
 	window.alert("Hello");
 	//usersRef.push(
 	//{ 
