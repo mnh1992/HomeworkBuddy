@@ -1,15 +1,15 @@
-//var ref = new Firebase("https://whiteboard-10ec5.firebaseio.com/");
-//var usersRef = ref.child("users");
+var ref = new Firebase("https://whiteboard-10ec5.firebaseio.com/");
+var usersRef = ref.child("users");
 
 //Greet the user when filled out the login page info and hit enter button
 $(document).ready(function(){
     $('#btn1').click(function(){
-	window.alert("Hello");
-	//usersRef.push(
-	//{ 
-	//	first: "Hello", 
-	//	last: "World"
-	//});    
+	//window.alert("Hello");
+	usersRef.push(
+	{ 
+		first: "Hello", 
+		last: "World"
+	});    
     });
 });
 
