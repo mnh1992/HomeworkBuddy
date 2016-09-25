@@ -1,8 +1,10 @@
+var myFirebaseRef = new Firebase("https://whiteboard-10ec5.firebaseio.com/");
+
 //Greet the user when filled out the login page info and hit enter button
 $(document).ready(function(){
     $('#btn1').click(function(fname, lname){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
-	firebase.database().ref().push(
+	myFirebaseRef.ref().push(
 	{ 
 		first: fname.value, 
 		last: lname.value
