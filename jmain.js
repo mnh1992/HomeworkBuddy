@@ -2,7 +2,7 @@
 $(document).ready(function(){
     $('#btn1').click(function(fname, lname){
 	//window.alert("univ" + search_univ.value + "class" + search_class.value + "Name" + fname.value+ " " + lname.value);
-	firebase.database().ref().child('users').push(
+	firebase.database().ref().push(
 	{ 
 		first: fname.value, 
 		last: lname.value
