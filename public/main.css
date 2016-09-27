@@ -191,3 +191,56 @@ h2{
 
     clear:both;
 }
+
+
+body{
+
+    font-family: arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+
+.mainHeader{
+    width:100%;
+    height:60px;
+    background-color:#9999ff;
+    box-shadow: 0px 4px 2px #9999ff;
+    padding: 10px 10px;
+
+
+}
+
+
+.welcome{
+    width: 1024px;
+    margin:0px auto;
+    margin-top: 12px;
+    background-color: #f2f2f2;
+
+
+}
+
+#controls {
+    width: 1024px;
+    margin:0px auto;
+
+}
+
+#Add{
+    width: 100px;
+    height: 30px;
+    front-color: #f2f2f2;
+    margin: 10px 10px;
+
+}
+
+
+#Add_School{
+    width: 500px;
+    font-color: #f2f2f2;
+    font-size:24px;
+    postion: absolute;
+
+}
+
