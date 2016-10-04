@@ -15,14 +15,7 @@ h1 {
 
 h2 {
     color: navy;
-    margin-left: 20px;
-}
-form {
-    margin-left: 250px;
-    width: 400px;
-    padding: 1em;
-    border: 3px solid #FFF;
-    border-radius: 2em;
+    margin-left: 5px;
 }
 
 form div + div {

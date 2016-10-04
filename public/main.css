@@ -14,11 +14,10 @@ header, nav, article, section, footer, aside {
 so we could center the entire page. when we want to float next to logo make sure not to exceed the
 width of the container*/
 .container{
-    width: 1000px;
-    height: 101px;
+    width: 900px;
+    height: 75px;
     margin: 0px auto;
-    padding-bottom: 5px;
-
+    padding-bottom: 2px;
 }
 
 /*
@@ -49,18 +48,14 @@ a:visited{
 }
 
 .logo{
-
-    height: 101px;
-    width: 320px ;
+    height: 75px;
+    width: 200px ;
     float:left;
-
-
 }
 
 .top_nav ul li{
     float: left;
     padding: 35px 20px;
-
 }
 
 #login{
@@ -73,8 +68,6 @@ a:visited{
     border-radius: 10px;
 }
 
-
-
 #sign_up{
     border: 1px solid #808080;
     color: #6dc066;
@@ -85,16 +78,12 @@ a:visited{
     border-radius: 10px;
 }
 
-
-
 .main_content {
-    width: 1000px;
-    height: 500px;
-    padding: 20px 20px;
-    margin: 20px;
-
+    width: 800px;
+    height: 300px;
+    padding: 5px 5px;
+    margin: 5px;
 }
-
 
 .main_content img{
     margin: 30px;
@@ -102,7 +91,13 @@ a:visited{
 }
 
 h2{
-    font-size: 24pt;
+    font-size: 20pt;
+    text-align: center;
+    color: #000066;
+}
+
+h1{
+    font-size: 20pt;
     text-align: center;
     color: #000066;
 }
@@ -112,21 +107,17 @@ h2{
     font-size: 20pt;
     text-align: center;
     color: #808080;
-
-
 }
 
 .right_side_main ul li{
     width: 350px;
     float: left;
-    font-weight: 200;
+    font-weight: 100;
     color: #000066;
-    margin: 20px 5px;
+    margin: 10px 5px;
     padding: 5px 5px;
     list-style-type: square;
 }
-
-
 
 #start_students {
     border: 1px solid #808080;
@@ -135,8 +126,8 @@ h2{
     color: #6dc066;
     background-color: #000066;
     text-decoration: none;
-    padding: 25px 25px;
-    margin: 25px 10px 25px 310px;
+    padding: 15px 15px;
+    margin: 25px 10px 25px 35px;
     border-radius: 10px;
 }
 
@@ -147,10 +138,9 @@ h2{
     color: #6dc066;
     background-color: #4d4d4d;
     text-decoration: none;
-    padding: 25px 25px;
+    padding: 15px 15px;
     margin: 25px 10px;
     border-radius: 10px;
-
 }
 
 #start_students:hover{
@@ -169,7 +159,6 @@ h2{
 .page_footer ul li{
     color: #808080;
     font-weight: 100;
-
 }
 
 .About_column{
@@ -188,59 +177,5 @@ h2{
 }
 /* make footer clear floated element */
 .page_footer{
-
     clear:both;
 }
-
-
-body{
-
-    font-family: arial, sans-serif;
-    margin: 0;
-    background-color: #f2f2f2;
-}
-
-
-.mainHeader{
-    width:100%;
-    height:60px;
-    background-color:#9999ff;
-    box-shadow: 0px 4px 2px #9999ff;
-    padding: 10px 10px;
-
-
-}
-
-
-.welcome{
-    width: 1024px;
-    margin:0px auto;
-    margin-top: 12px;
-    background-color: #f2f2f2;
-
-
-}
-
-#controls {
-    width: 1024px;
-    margin:0px auto;
-
-}
-
-#Add{
-    width: 100px;
-    height: 30px;
-    front-color: #f2f2f2;
-    margin: 10px 10px;
-
-}
-
-
-#Add_School{
-    width: 500px;
-    font-color: #f2f2f2;
-    font-size:24px;
-    postion: absolute;
-
-}
-
