@@ -1,4 +1,3 @@
-
 "use strict";
 // Initialize Firebase
 var config = {
@@ -11,6 +10,8 @@ var config = {
 
 firebase.initializeApp(config);
 
+
+//User login function to let an authorized user login with username and password
 function login(){
 
     var user= $('#userid').val();
@@ -28,6 +29,7 @@ function login(){
                 alert("Login Successful!");
                 window.localStorage.setItem('username',user);
                 document.getElementById("coursereg").innerHTML="Click here for Course Registration";
+                document.getElementById("fileupload").innerHTML="Click here for uploading documents";
                 dbRef.push({logintime : datetime});
                 return;
             }
@@ -39,7 +41,7 @@ function login(){
     });
 }
 
-
+//Creating the html login page
 var Login = React.createClass({
     render: function() {
         return (
@@ -59,6 +61,9 @@ var Login = React.createClass({
                 </div>
                 <div id="reg">
                         <a id="coursereg" href="course_signup.html"></a>
+                </div>
+                <div>
+                    <a id="fileupload" href="publish_hw.html"></a>
                 </div>
             </div>
         );

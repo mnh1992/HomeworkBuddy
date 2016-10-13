@@ -11,6 +11,7 @@ var config = {
 
 firebase.initializeApp(config);
 
+//Get all the information used in signup to store in firebase for each user
 function register(){
     var user= $('#userid').val();
     var first = $('#fname').val();
@@ -43,6 +44,7 @@ function register(){
         }
     });
 
+    //Compare the password entered and password given in the database
     function comparePass(p1, p2)
     {
         if(p1 !== p2)
@@ -54,6 +56,7 @@ function register(){
     }
 }
 
+// Create the register page
 var RegisterPage = React.createClass({
     render: function() {
         return (
