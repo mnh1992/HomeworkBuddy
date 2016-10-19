@@ -113,6 +113,50 @@ other info required for signup -->
             'Password': password.value
         });
     });
+
+    //Testing Registration function and Firebase
+    describe('Registration', function () {
+        var TestUtils = React.addons.TestUtils;
+        var RegistrationAppComponent, element, renderedDOM;
+        beforeEach(function (done) {
+            element = React.createElement(TodoApp);
+            RegistrationAppComponent = TestUtils.renderIntoDocument(element);
+        });
+        //Testing if button component is rendered
+        it("Has a button", function () {
+            let button = TestUtils.scryRenderedDOMComponentsWithTag(RegistrationAppComponent, "btn1");
+
+            expect(button).not.toBeUndefined();
+        });
+
+        //mock data for input fields
+        var mockData = {
+            'First Name': John,
+            'Last Name': Doe,
+            'Role': Tester,
+            'Email': Email@gmail.com,
+            'Password': 123Testing
+        };
+
+
+        it("Has input fields", function () {
+            expect(function () {
+                TestUtils.findRenderedComponentWithType(RegistrationAppComponent, mockData);
+            }).not.toThrow();
+        });
+        //Testing firebase calls
+        describe("New User", function () {
+            beforeEach(function () {
+                spyOn(usrRef.fireRef, "push");
+            });
+            it("Causes fireBase push to be called", function () {
+                let button = TestUtils.scryRenderedDOMComponentsWithTag(RegistrationAppComponent, "btn1");
+                TestUtils.Simulate.click(button);
+                expect(usrRef.fireRef.push).toHaveBeenCalledWith({"text": ""});
+            });
+        });
+
+
 </script>
 
 
