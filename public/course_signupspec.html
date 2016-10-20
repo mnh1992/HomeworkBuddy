@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.5.2</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.5.2/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-2.5.2/jasmine.css">
+
+    <script src="lib/jasmine-2.5.2/jasmine.js"></script>
+    <script src="lib/jasmine-2.5.2/jasmine-html.js"></script>
+    <script src="lib/jasmine-2.5.2/boot.js"></script>
+
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-with-addons.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+
+</head>
+
+<body>
+<div id="coursesignup"></div>
+<!--script type="text/babel." src="login.js"></script-->
+<script type="text/babel">
+    "use strict";
+
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+        authDomain: "whiteboard-10ec5.firebaseapp.com",
+        databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+        storageBucket: "whiteboard-10ec5.appspot.com",
+        messagingSenderId: "867522105303"
+    };
+
+    firebase.initializeApp(config);
+
+    var user;
+
+    //Get data from API for school selections
+    var URL= "https://api.data.gov/ed/collegescorecard/v1/schools?_fields=school.name,id&_per_page=100&school.main_campus=1&school.state=va&school.degrees_awarded.predominant=3&api_key=FNMmHrRzLriPD033jmlA96AOgjmUmKXiRUviDLnU";
+    var CourseSign = React.createClass({
+
+        getInitialState: function () {
+            return {
+                options: []
+            }
+        },
+
+
+
+        //Include the html file in js
+        render: function () {
+            return (
+                    <div className="mainHeader">
+                        <h1> WhiteBoard</h1>
+                        <p id="username">Welcome! {user} </p>
+                        <h2>Course Signup Page</h2>
+                        <h2>First you need to add your school</h2>
+                        <div id="controls">
+                            <select id="school" name="SchoolSelect">
+                                {this.state.options}
+                            </select>
+                        </div>
+                        <div>
+                            <input name="courseinput" type="text" id="course" placeholder="Enter your course"/>
+                        </div>
+                        <div>
+                            <button name="csignup" id="csignup" onClick={this.course_signup}>Signup</button>
+                        </div>
+                    </div>
+            );
+        },
+
+        //This function returns an acronym for longer school names
+        getShortName: function(str) {
+            var matches = str.match(/\b(\w)/g);
+            var acronym = matches.join('');
+            return acronym
+        },
+
+        //Add a new school if user has not already signed up for that course.
+        course_signup: function () {
+
+
+            var course= document.getElementById('course').value;
+            var school= document.getElementById('school').value;
+            var dbr=this.dbRef;
+            this.dbRef.child(school)
+                    .orderByChild("course")
+                    .equalTo(course)
+                    .once("value", function(snapshot) {
+                        if (!snapshot.exists()) {
+                            dbr.child(school).push(
+                                    {"course": course}
+                                    );
+                            alert("New course added!");
+                            return;
+                        } else  {
+                            alert("You have already signed up for this course!");
+                        }
+                    });
+
+        },
+        componentWillMount: function () {
+            this.user = localStorage.getItem('username');
+            this.dbRef =  firebase.database().ref("course/" + this.user);
+            $.ajax({
+                url: URL,
+                type: 'GET',
+                dataType: 'json',
+                cache: true,
+                success: function(data) {
+                    for (var i = 0; i < data.results.length; i++) {
+                        var sch_id = data.results[i]['id'];
+                        var sch_name = data.results[i]['school.name'];
+                        var sch_acrnm = this.getShortName(sch_name);
+                        this.state.options.push(
+                                <option key={i} value={sch_acrnm}> {sch_acrnm} - {sch_name} </option>
+                        );
+                    }
+                    this.forceUpdate();
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.error(URL, status, err.toString());
+                    alert("Error retrieving data");
+                }.bind(this)
+            });
+        }
+    });
+
+    ReactDOM.render(
+            <CourseSign />,
+            document.getElementById('coursesignup')
+    );
+
+    //Tesing using Jasmine
+    describe("New Course signup page", function () {
+
+            var TestUtils = React.addons.TestUtils;
+            var courseComponent, element, renderedDOM;
+            this.user="nhem";
+            var courseno="CS114";
+            var schoolcd="VCU";
+
+            beforeEach(function (done) {
+
+                element = React.createElement(CourseSign);
+                courseComponent = TestUtils.renderIntoDocument(element);
+                window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+                setTimeout(function () {
+                     done();
+                }, 500);
+            });
+
+            it("Has a Signup Button", function () {
+                let button = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "button")[0];
+                expect(button.innerHTML).toBe("Signup")
+            });
+
+            it("Has a Course Field", function () {
+                let course = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "input")[0];
+                expect(course.id).toBe("course")
+            });
+            it("Has a School Select options", function () {
+                let school = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "select");
+                expect(school[0].id).toBe("school")
+            });
+
+            it("Has a non-empty scools list", function () {
+                let option = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "option");
+                expect(option.length).toBeGreaterThan(1);
+            });
+
+            describe("Signup Button press ", function () {
+                beforeEach(function () {
+                    let school = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "select")[0];
+                    spyOn(courseComponent.dbRef.child(school.value), "push");
+                });
+                it("Causes fireBase push to be called", function () {
+                    let button = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "button")[0];
+                    var course = TestUtils.scryRenderedDOMComponentsWithTag(courseComponent, "input")[0];
+                    TestUtils.Simulate.change(course);
+                    TestUtils.Simulate.click(button);
+                    //expect(courseComponent.dbRef).toHaveBeenCalled();
+                });
+            });
+
+    });
+</script>
+</body>
+</html>
