@@ -95,3 +95,71 @@ ReactDOM.render(
     <MainPage  />,
     document.getElementById('main')
 );
+
+//start tests for the elements on the main page
+
+describe('Displays Content', function () {
+        var TestUtils = React.addons.TestUtils;
+        var displayComponent, element, renderedDOM;
+        beforeEach(function (done) {
+            element = React.createElement(MainPage);
+            displayComponent = TestUtils.renderIntoDocument(element);
+          
+        });
+    it("Has a student button", function () {        
+        //not sure which way is correct
+        let sElem = TestUtils.findRenderedDOMComponentWithTag(displayComponent,"start_students");
+        expect(sElem).not.toBeUndefined();
+        
+        
+        //saw this way on stackoverflow
+         var studentElement = element(By.id("start_students"));//get this
+        browser.wait(function(){//waits to find the elem
+            studentElement .isPresent();},
+            10000,"Element NOT found");
+            expect(studentElement.getText()).toContain("I am a Student");//make sure element has thsi for student
+            //expect(buttons[1].innerHTML).toBe("New");
+        });
+     it("Has a teacher button", function () {        
+        //not sure which way is correct
+        let tElem = TestUtils.findRenderedDOMComponentWithTag(displayComponent,"start_instructors");
+        expect(tElem).not.toBeUndefined();
+        
+        
+        //saw this way on stackoverflow
+         var teacherElement = element(By.id("start_students"));//get this
+        browser.wait(function(){//waits to find the elem
+            teacherElement .isPresent();},
+            10000,"Element NOT found");
+            expect(teacherElement.getText()).toContain("I am an Instructor); //make sure element has thsi for student
+        });
+     it("Has a login button", function () {        
+        //not sure which way is correct
+        let logElem = TestUtils.findRenderedDOMComponentWithTag(displayComponent,"login");
+        expect(logElem).not.toBeUndefined();
+        
+        
+        //saw this way on stackoverflow
+         var loginElement = element(By.id("login"));//get this
+        browser.wait(function(){//waits to find the elem
+            loginElement .isPresent();},
+            10000,"Element NOT found");
+            expect(loginElement.getText()).toContain("Login");//make sure element has thsi for student
+            //expect(buttons[1].innerHTML).toBe("New");
+        });
+     it("Has a signup button", function () {      
+        //not sure which way is correct
+        let signElem = TestUtils.findRenderedDOMComponentWithTag(displayComponent,"sign_up");
+        expect(signElem).not.toBeUndefined();
+        
+        
+        //saw this way on stackoverflow
+         var signElement = element(By.id("sign_up"));//get this
+        browser.wait(function(){//waits to find the elem
+            signElement .isPresent();},
+            10000,"Element NOT found");
+            expect(signElement.getText()).toContain("Sign Up");//make sure element has thsi for student
+            //expect(buttons[1].innerHTML).toBe("New");
+        });
+
+});
