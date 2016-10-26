@@ -1,6 +1,14 @@
 //Vijith
 "use strict";
 // Initialize Firebase with private key
+var firebase = require("firebase");
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true;
+}));
 
 firebase.initializeApp({
 	serviceAccount: "private_key.json",
@@ -22,23 +30,28 @@ function register(){
     }
     var dbRef = firebase.database().ref("users/" + user);
 
-    dbRef.once("value").then(function(snapshot) {
-        if (snapshot.exists()) {
-            alert("User already exists");
-            return;
-        }
-        else
-        {
-            dbRef.set({
-                    First : first,
-                    Last: last,
-                    Role : role,
-                    Email : email,
-                    Passwd: pass
-                });
-            alert("User created");
-        }
-    });
+    app.post(user, function(req,res){
+    	dbRef.once("value").then(function(snapshot) {
+        	if (snapshot.exists()) {
+            	alert("User already exists");
+            	return;
+        	}
+        	else{
+            	dbRef.set({
+                	    First : first,
+                    	Last: last,
+                    	Role : role,
+                    	Email : email,
+                    	Passwd: pass
+                	},function(){
+                		res.send("OK!");
+                	}).catch(function(){
+                		res.status(403);
+                	});
+            	alert("User created");
+        	}
+    	});
+	});
 
     //Compare the password entered and password given in the database
     function comparePass(p1, p2)
