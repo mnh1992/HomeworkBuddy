@@ -1,14 +1,9 @@
 "use strict";
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
-    authDomain: "whiteboard-10ec5.firebaseapp.com",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
-    storageBucket: "whiteboard-10ec5.appspot.com",
-    messagingSenderId: "867522105303"
-};
-
-firebase.initializeApp(config);
+// Initialize Firebase with private key
+firebase.initializeApp({
+    serviceAccount: "private_key.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
 
 
 //User login function to let an authorized user login with username and password

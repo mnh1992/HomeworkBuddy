@@ -4,15 +4,10 @@
 "use strict";
 
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
-    authDomain: "whiteboard-10ec5.firebaseapp.com",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
-    storageBucket: "whiteboard-10ec5.appspot.com",
-    messagingSenderId: "867522105303"
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp({
+    serviceAccount: "private_key.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
 
 //This function returns an acronym for longer school names
 function getShortName(str) {
