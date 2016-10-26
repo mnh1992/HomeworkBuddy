@@ -15,6 +15,7 @@ firebase.initializeApp({
 	databaseURL: "https://whiteboard-10ec5.firebaseio.com"
 });
 
+var port = process.env.PORT || 3000;
 //Get all the information used in signup to store in firebase for each user
 function register(){
     var user= $('#userid').val();
@@ -120,4 +121,9 @@ ReactDOM.render(
     <RegisterPage  />,
     document.getElementById('regContent')
 );
+
+
+app.use(express.static('public'));
+
+app.listen(port);
 
