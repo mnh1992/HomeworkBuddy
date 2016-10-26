@@ -1,0 +1,23 @@
+{
+  "name": "whiteboard",
+  "version": "1.0.0",
+  "description": "WhiteBoard Project",
+  "main": "JSFile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnh1992/WhiteBoard.git"
+  },
+  "keywords": [
+    "SWE432"
+  ],
+  "author": "Andrew Tran, Maheshi Hemachandra, Mahnoor Imran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnh1992/WhiteBoard/issues"
+  },
+  "homepage": "https://github.com/mnh1992/WhiteBoard#readme"
+}
