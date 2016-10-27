@@ -37,6 +37,9 @@ var MainPage = React.createClass({
                     <div id="login">
                         <a href="login.html"> Login </a>
                     </div>
+                    <div id="CourseSignup">
+                        <a href="course_signup.html"> Course Signup </a>
+                    </div>
                 </header>
 
 

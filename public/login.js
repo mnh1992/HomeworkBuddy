@@ -1,51 +1,9 @@
 "use strict";
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
-    authDomain: "whiteboard-10ec5.firebaseapp.com",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
-    storageBucket: "whiteboard-10ec5.appspot.com",
-    messagingSenderId: "867522105303"
-};
 
-firebase.initializeApp(config);
-
-
-//User login function to let an authorized user login with username and password
-function login(){
-
-    var user= $('#userid').val();
-    var pass = $('#password').val();
-    var dbRef = firebase.database().ref("users/" + user);
-
-    dbRef.once("value").then(function(snapshot) {
-        if (snapshot.exists()) {
-            if(pass !== snapshot.child("Passwd").val()){
-                alert("Invalid password. Retry!");
-                return;
-            }
-            else{
-                var datetime = Date();
-                alert("Login Successful!");
-                window.localStorage.setItem('username',user);
-                document.getElementById("coursereg").innerHTML="Click here for Course Registration";
-                document.getElementById("fileupload").innerHTML="Click here for uploading documents";
-                dbRef.push({logintime : datetime});
-                return;
-            }
-        }
-        else
-        {
-            alert("Invalid user id. Please signup.");
-        }
-    });
-}
-
-//Creating the html login page
 var Login = React.createClass({
     render: function() {
         return (
-            <div className="commentBox">
+            <div className="login">
                 <h1> Login Page </h1>
                 <h3> Please enter your Username and Password </h3>
                 <div>
@@ -56,25 +14,45 @@ var Login = React.createClass({
                     <label>Password: </label>
                     <input type="password" id="password" name="pword"/>
                 </div>
+                <br/>
                 <div id="btn2">
-                    <button type="submit" onClick={login} >Submit</button>
+                    <button type="submit" onClick={this.login} >Submit</button>
                 </div>
                 <div id="reg">
                         <a id="coursereg" href="course_signup.html"></a>
                 </div>
-                <div>
-                    <a id="fileupload" href="publish_hw.html"></a>
-                </div>
+
             </div>
         );
+    },
+    login: function() {
+        var user = $('#userid').val();
+        var pass = $('#password').val();
+        $.ajax({url: "http://whitebd.herokuapp.com/login",
+            type: 'PUT',
+            data: { userid: user, password: pass},
+            success: function(data) {
+
+                switch (data) {
+                    case "0":
+                        alert("Loing Successful");
+                        document.getElementById("coursereg").innerHTML = "Click here for Course Registration";
+                    case "1":
+                        alert("Invalid User, Please signup");
+                        break;
+                    case "2":
+                        alert("Invalid Password. Please retry.");
+                        break;
+                }
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
     }
 });
 
 ReactDOM.render(
-    <Login  />,
+    <Login/>,
     document.getElementById('content')
 );
-
-
-//<a id="creg" href="course_signup.html"></a>
-//<footer>Copyright @ WhiteBoard.com</footer>
