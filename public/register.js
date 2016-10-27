@@ -1,21 +1,16 @@
 //Vijith
 "use strict";
-// Initialize Firebase with private key
-var firebase = require("firebase");
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true;
-}));
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+    authDomain: "whiteboard-10ec5.firebaseapp.com",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+    storageBucket: "whiteboard-10ec5.appspot.com",
+    messagingSenderId: "867522105303"
+};
 
-firebase.initializeApp({
-	serviceAccount: "private_key.json",
-	databaseURL: "https://whiteboard-10ec5.firebaseio.com"
-});
+firebase.initializeApp(config);
 
-var port = process.env.PORT || 3000;
 //Get all the information used in signup to store in firebase for each user
 function register(){
     var user= $('#userid').val();
@@ -31,28 +26,23 @@ function register(){
     }
     var dbRef = firebase.database().ref("users/" + user);
 
-    app.post(user, function(req,res){
-    	dbRef.once("value").then(function(snapshot) {
-        	if (snapshot.exists()) {
-            	alert("User already exists");
-            	return;
-        	}
-        	else{
-            	dbRef.set({
-                	    First : first,
-                    	Last: last,
-                    	Role : role,
-                    	Email : email,
-                    	Passwd: pass
-                	},function(){
-                		res.send("OK!");
-                	}).catch(function(){
-                		res.status(403);
-                	});
-            	alert("User created");
-        	}
-    	});
-	});
+    dbRef.once("value").then(function(snapshot) {
+        if (snapshot.exists()) {
+            alert("User already exists");
+            return;
+        }
+        else
+        {
+            dbRef.set({
+                    First : first,
+                    Last: last,
+                    Role : role,
+                    Email : email,
+                    Passwd: pass
+                });
+            alert("User created");
+        }
+    });
 
     //Compare the password entered and password given in the database
     function comparePass(p1, p2)
@@ -121,9 +111,4 @@ ReactDOM.render(
     <RegisterPage  />,
     document.getElementById('regContent')
 );
-
-
-app.use(express.static('public'));
-
-app.listen(port);
 
