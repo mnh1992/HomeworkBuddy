@@ -10,19 +10,14 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
-var config = {
-    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
-    authDomain: "whiteboard-10ec5.firebaseapp.com",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
-    storageBucket: "whiteboard-10ec5.appspot.com",
-    messagingSenderId: "867522105303"
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp({
+    serviceAccount: "privkey.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
 
 var dbRef = firebase.database().ref('users');
 
-var port = process.env.PORT || 3981;
+var port = process.env.PORT || 3000;
 
 app.put('/coursesignup', function (req, res) {
     var school = req.body.school;
