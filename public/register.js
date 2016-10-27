@@ -1,15 +1,10 @@
 //Vijith
 "use strict";
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
-    authDomain: "whiteboard-10ec5.firebaseapp.com",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
-    storageBucket: "whiteboard-10ec5.appspot.com",
-    messagingSenderId: "867522105303"
-};
-
-firebase.initializeApp(config);
+firebase.initializeApp({
+    serviceAccount: "private_key.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
 
 //Get all the information used in signup to store in firebase for each user
 function register(){
