@@ -1,54 +1,18 @@
 //Vijith
 "use strict";
 // Initialize Firebase
-firebase.initializeApp({
-    serviceAccount: "private_key.json",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
-});
 
 //Get all the information used in signup to store in firebase for each user
-function register(){
-    var user= $('#userid').val();
-    var first = $('#fname').val();
-    var last = $('#lname').val();
-    var role = $('#role').val();
-    var email = $('#email').val();
-    var pass = $('#password').val();
-    var conf = $('#confirmPassword').val();
-
-    if(!comparePass(pass, conf)){
-        return;
-    }
-    var dbRef = firebase.database().ref("users/" + user);
-
-    dbRef.once("value").then(function(snapshot) {
-        if (snapshot.exists()) {
-            alert("User already exists");
-            return;
-        }
-        else
-        {
-            dbRef.set({
-                    First : first,
-                    Last: last,
-                    Role : role,
-                    Email : email,
-                    Passwd: pass
-                });
-            alert("User created");
-        }
-    });
 
     //Compare the password entered and password given in the database
-    function comparePass(p1, p2)
+function comparePass(p1, p2)
+{
+    if(p1 !== p2)
     {
-        if(p1 !== p2)
-        {
-            alert("Passwords do not match");
-            return false;
-        }
-        return true;
+        alert("Passwords do not match");
+        return false;
     }
+    return true;
 }
 
 // Create the register page
@@ -92,13 +56,48 @@ var RegisterPage = React.createClass({
                     <input type="password" id="confirmPassword" name="email" placeholder="confirm password"/>
                 </div>
                 <div id="btn1">
-                    <button type="submit" onClick={register}>Submit</button>
+                    <button type="submit" onClick={this.register}>Submit</button>
                 </div>
                 <div id="status">
                     <label type="text" name="status">  </label>
                 </div>
             </div>
         );
+    },
+//
+    //
+    //
+
+
+    register: function() {
+        var user = $('#userid').val();
+        var first = $('#fname').val();
+        var last = $('#lname').val();
+        var role = $('#role').val();
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        var conf = $('#confirmPassword').val();
+
+        if (!comparePass(pass, conf)) {
+            return;
+        }
+        $.ajax({url: "http://localhost:3000/register",
+            type: 'PUT',
+            data: { userid: user, password: pass, firstn: first, lastn: last, role: role, email: email },
+            success: function(data) {
+                switch (data) {
+                    case "0":
+                        alert("Registration Successful");
+                        document.getElementById("coursereg").innerHTML = "Click here for Course Registration";
+                    case "1":
+                        alert("User already registered");
+                        break;
+                }
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
     }
 });
 
