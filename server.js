@@ -41,6 +41,34 @@ app.put('/coursesignup', function (req, res) {
         });
 });
 
+app.put('/register', function (req, res) {
+    var user = req.body.userid;
+    var first = req.body.firstn;
+    var last = req.body.lasttn;
+    var role = req.body.role;
+    var email = req.body.email;
+    var pass = req.body.pass;
+    console.log("Here");
+    dbRef.child(user).once("value").then(function (snapshot) {
+        if (snapshot.exists()) {
+            console.log("User already exists");
+            res.send("1");
+            return;
+        }
+        else {
+            dbRef.set({
+                First: first,
+                Last: last,
+                Role: role,
+                Email: email,
+                Passwd: pass
+            });
+            console.log("User created");
+            res.send("0");
+        }
+    });
+});
+
 app.put('/login', function (req, res) {
     var user=req.body.userid;
     var pass=req.body.password;
