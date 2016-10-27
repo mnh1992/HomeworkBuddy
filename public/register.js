@@ -81,7 +81,7 @@ var RegisterPage = React.createClass({
         if (!comparePass(pass, conf)) {
             return;
         }
-        $.ajax({url: "http://localhost:3000/register",
+        $.ajax({url: "http://whitebd.herokuapp.com/register",
             type: 'PUT',
             data: { userid: user, password: pass, firstn: first, lastn: last, role: role, email: email },
             success: function(data) {
