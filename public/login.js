@@ -28,7 +28,7 @@ var Login = React.createClass({
     login: function() {
         var user = $('#userid').val();
         var pass = $('#password').val();
-        $.ajax({url: "http://localhost:3000/login",
+        $.ajax({url: "http://whitebd.herokuapp.com/login",
             type: 'PUT',
             data: { userid: user, password: pass},
             success: function(data) {
