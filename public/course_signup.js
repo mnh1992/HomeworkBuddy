@@ -52,7 +52,7 @@ getInitialState: function () {
         var school = $('#school').val();
         var course = $('#course').val();
         //Reference the course table in firebase
-        $.ajax({url: "http://localhost:3000/coursesignup",
+        $.ajax({url: "http://whitebd.herokuapp.com/coursesignup",
                 type: 'PUT',
                 data: { school: school, course: course},
                 success: function(data) {
