@@ -1,5 +1,10 @@
 "use strict";
 
+firebase.initializeApp({
+    serviceAccount: "private_key.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
+
 var Login = React.createClass({
     render: function() {
         return (
@@ -28,12 +33,17 @@ var Login = React.createClass({
     login: function() {
         var user = $('#userid').val();
         var pass = $('#password').val();
-        $.ajax({url: "http://whitebd.herokuapp.com/login",
-            type: 'PUT',
-            data: { userid: user, password: pass},
-            success: function(data) {
-
-                switch (data) {
+        var idToken = req.body.token;
+        //Authenticate with firebase and get the uid from it
+        firebase.auth().verifyToken(idToken).then(function(decodedToken){
+            var uid = decodedToken.uid;
+            //Then start the ajax call that interacts with heroku
+            $.ajax({url: "http://whitebd.herokuapp.com/login",
+                type: 'PUT',
+                uid: uid,
+                data: { userid: user, password: pass},
+                success: function(data) {
+                    switch (data) {
                     case "0":
                         alert("Loing Successful");
                         document.getElementById("coursereg").innerHTML = "Click here for Course Registration";
@@ -43,12 +53,18 @@ var Login = React.createClass({
                     case "2":
                         alert("Invalid Password. Please retry.");
                         break;
+                    }
+                },
+                error: function() {
+                    alert('Error');
                 }
-            },
-            error: function() {
-                alert('Error');
-            }
+            });
+        }).catch(function(error){
+            res.status(403);
+            res.send();
         });
+
+
     }
 });
 
