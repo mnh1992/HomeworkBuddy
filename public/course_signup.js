@@ -5,6 +5,71 @@
 "use strict";
 var user;
 
+var config = {
+    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+    authDomain: "whiteboard-10ec5.firebaseapp.com",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+    storageBucket: "whiteboard-10ec5.appspot.com",
+    messagingSenderId: "867522105303"
+};
+firebase.initializeApp(config);
+
+var userName;
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        $("#firebaseui-auth-container").hide();
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        userName = user.uid;
+        ReactDOM.render(<CourseSign />, document.getElementById('coursesignup'));
+
+        var providerData = user.providerData;
+        user.getToken().then(function(accessToken) {
+            document.getElementById('sign-in-status').textContent = "Welcome, " + displayName;
+            document.getElementById('account-details').textContent = JSON.stringify({
+                displayName: displayName,
+                email: email,
+                emailVerified: emailVerified,
+                photoURL: photoURL,
+                uid: uid,
+                accessToken: accessToken,
+                providerData: providerData
+            }, null, '  ');
+        });
+    } else {
+        console.log("Signed out");
+        // User is signed out.
+        $("#header").hide();
+        // FirebaseUI config.
+        var uiConfig = {
+            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            'signInOptions': [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+//            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+//            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+//            firebase.auth.GithubAuthProvider.PROVIDER_ID,
+//                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            'tosUrl': '<your-tos-url>',
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+        $("#coursesignup").hide();
+    }
+}, function(error) {
+    console.log(error);
+});
+
+
 //Get data from API for school selections
 var URL= "https://api.data.gov/ed/collegescorecard/v1/schools?_fields=school.name,id&_per_page=100&school.main_campus=1&school.state=va&school.degrees_awarded.predominant=3&api_key=FNMmHrRzLriPD033jmlA96AOgjmUmKXiRUviDLnU";
 var CourseSign = React.createClass({
@@ -52,10 +117,14 @@ getInitialState: function () {
         var school = $('#school').val();
         var course = $('#course').val();
         //Reference the course table in firebase
-        $.ajax({url: "http://whitebd.herokuapp.com/coursesignup",
+       // $.ajax({url: "http://whitebd.herokuapp.com/coursesignup",
+        var user = localStorage.getItem('username');
+        firebase.auth().currentUser.getToken().then(function(idToken) {
+            $.ajax({
+                url: "http://whitebd.herokuapp.com/coursesignup",
                 type: 'PUT',
-                data: { school: school, course: course},
-                success: function(data) {
+                data: {user: user, school: school, course: course,token: idToken},
+                success: function (data) {
                     switch (data) {
                         case "0":
                             alert("Course signup successful");
@@ -65,10 +134,11 @@ getInitialState: function () {
                             break;
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Error');
                 }
             });
+        });
     },
     componentWillMount: function () {
         user = localStorage.getItem('username');

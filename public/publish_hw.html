@@ -1,20 +1,51 @@
-<!-- This page is the login.html file which lets you login to an account -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="mystyle.css"/></head>
 
-<head><link rel="stylesheet" href="mystyle.css"/></head>
+    <a href="landingpage.html"><img src="wblogo.png" alt="logo here" width="100px" height="75px" class="logo"/><br> <br></a>
+    <meta charset="UTF-8">
+    <title>ReactFire Demo</title>
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+</head>
+<body>
 
-<a href="landingpage.html"><img src="wblogo.png" alt="logo here" width="100px" height="75px" class="logo"/><br> <br></a>
-<body onload="myFunction()">
+<div id ="homework"></div>
+<form id="newItemForm" action="/upload" method="post" enctype="multipart/form-data"><input type="text" id="newTodo" name="todoText" /><input type="file" id="newFile" name="img" /><input type="submit" value="New" /></form>
 
-<input type="file" id="myFile" multiple size="50" onchange="myFunction()">
+<script type="text/babel">
+    "use strict";
 
-<p id="demo"></p>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+        authDomain: "whiteboard-10ec5.firebaseapp.com",
+        databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+        storageBucket: "whiteboard-10ec5.appspot.com",
+        messagingSenderId: "867522105303"
+    };
 
-<script type = "text" src="publish_hw.js"></script>
-<textarea id = "noter-text-area"rows="3" cols="60">Please enter your comment</textarea>
-<button type="submit" value="Send">Send</button>
-<p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
+    firebase.initializeApp(config);
+
+
+    $('#newItemForm').submit(function(e)
+    {
+        e.preventDefault();
+        var formData = new FormData($("#newItemForm")[0]);
+        console.log(formData);
+        $.ajax({
+            type: "POST",
+            url: "/upload",
+            data: formData,
+            processData: false,
+            contentType: false
+
+        });
+    });
+</script>
 
 </body>
 </html>
