@@ -40,7 +40,7 @@ var Login = React.createClass({
             //Then start the ajax call that interacts with heroku
             $.ajax({url: "http://whitebd.herokuapp.com/login",
                 type: 'PUT',
-                uid: uid,
+                uid: 'herokubackend',
                 data: { userid: user, password: pass},
                 success: function(data) {
                     switch (data) {
