@@ -7,10 +7,17 @@
 "use strict";
 // Initialize Firebase
 
-firebase.initializeApp({
-    serviceAccount: "private_key.json",
-    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
-});
+var config = {
+    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+    authDomain: "whiteboard-10ec5.firebaseapp.com",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+    storageBucket: "whiteboard-10ec5.appspot.com",
+    messagingSenderId: "867522105303"
+};
+
+
+
+firebase.initializeApp(config);
 
 window.onload = function() {
     genSignupStat();

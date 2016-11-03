@@ -14,24 +14,32 @@
     <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
 </head>
 <body>
+<div id="header">
+    <span id="sign-in-status"></span> | <a href="javascript:firebase.auth().signOut()">Sign Out</a>
+</div>
+<div id="firebaseui-auth-container"></div>
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 <div class="header">
     <div id="image">
         <br><br>
         <a href="landingpage.html"><img src="wblogo.png" alt="logo" /></a>
-        <br/> <br/>
+        <br/> <br/><br/><br/>
         <div id="coursesignup"></div>
         <br>
     </div>
 </div>
-
+<div id="footer">
+    Debug: <span id="account-details"></span>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.css" />
 <script type="text/babel" src="course_signup.js"></script>
 
 </body>

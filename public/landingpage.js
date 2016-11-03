@@ -8,6 +8,71 @@
 
 // Main page has all the basic information about every other page.
 
+var config = {
+    apiKey: "AIzaSyDLUpdtV-WPzKo3_4E2EnzcLMy_Cved_DU",
+    authDomain: "whiteboard-10ec5.firebaseapp.com",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com",
+    storageBucket: "whiteboard-10ec5.appspot.com",
+    messagingSenderId: "867522105303"
+};
+firebase.initializeApp(config);
+
+var userName;
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        $("#firebaseui-auth-container").hide();
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        userName = user.uid;
+        ReactDOM.render(<MainPage />, document.getElementById('content'));
+
+        var providerData = user.providerData;
+        user.getToken().then(function(accessToken) {
+            document.getElementById('sign-in-status').textContent = "Welcome, " + displayName;
+            document.getElementById('account-details').textContent = JSON.stringify({
+                displayName: displayName,
+                email: email,
+                emailVerified: emailVerified,
+                photoURL: photoURL,
+                uid: uid,
+                accessToken: accessToken,
+                providerData: providerData
+            }, null, '  ');
+        });
+    } else {
+        console.log("Signed out");
+        // User is signed out.
+        $("#header").hide();
+        // FirebaseUI config.
+        var uiConfig = {
+            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            'signInOptions': [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+//            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+//            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+//            firebase.auth.GithubAuthProvider.PROVIDER_ID,
+//                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            'tosUrl': '<your-tos-url>',
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+        $("#content").hide();
+    }
+}, function(error) {
+    console.log(error);
+});
+
+
 var about = document.getElementById("about_us");
 var aboutListContents = ["Motivation", "Vision", "Careers"];
 var list1 = document.createElement("ol");
@@ -30,6 +95,8 @@ var MainPage = React.createClass({
                         <li> <a href="" id="students_speak"> Students Speak </a></li>
                         <li> <a href="" id="support"> Support </a></li>
                         <li> <a href="signup_stat.html" id="statistics"> Statistics </a></li>
+                        <li> <a href="publish_hw.html" id="Homework"> Upload Homework </a></li>
+                        <li> <a href="###" id="RHomework"> Retrieve Homework </a></li>
                     </ul>
                     <div id="sign_up">
                         <a href= "register.html"> Sign Up </a>
