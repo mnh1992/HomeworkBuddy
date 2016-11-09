@@ -101,9 +101,9 @@ var MainPage = React.createClass({
                     <div id="sign_up">
                         <a href= "register.html"> Sign Up </a>
                     </div>
-                    <div id="login">
+                    {/*<div id="login">
                         <a href="login.html"> Login </a>
-                    </div>
+                    </div>*/}
                     <div id="CourseSignup">
                         <a href="course_signup.html"> Course Signup </a>
                     </div>
@@ -129,7 +129,7 @@ var MainPage = React.createClass({
                     </article>
                 </section>
 
-                <div class="getting_started">
+                {/*<div class="getting_started">
                     <h1> Getting Started </h1>
                     <div id="start_students">
                         <a href="register.html"> I am a Student</a>
@@ -137,7 +137,7 @@ var MainPage = React.createClass({
                     <div id="start_instructors">
                         <a href="register.html"> I am an Instructor</a>
                     </div>
-                </div>
+                </div>*/}
                 <footer class="page_footer">
                     <div class="About_column">
                         <ul>
