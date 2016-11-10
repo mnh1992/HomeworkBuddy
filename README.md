@@ -24,6 +24,5 @@ Homework 5:
  1. Data visualization was implemented as a sorted bar graph. To access this, use the Statistics tab in the landingpage.html.
  2. The third scenario of course selection was moved to react. To access this, use the signup, then login with correct credentials. Once logged it displays a link for course registration. The one for posting homework is not relevant to this homework
 
-
-Heroku url
-https://dashboard.heroku.com/apps/whitebd
+New Heroku URL:
+http://whitebd.herokuapp.com/landingpage.html
