@@ -67,15 +67,37 @@ a:visited{
     margin: 25px 5px 25px 5px;
     border-radius: 10px;
 }
-
-#sign_up{
+#sign_up,#about_us,#students_speak,#statistics,#homework,#retrievehw,#coursesignup{
     border: 1px solid #808080;
     color: #6dc066;
+    float: left;
+    text-decoration: none;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 10px;
+}
+
+
+#signout{
+    font-size: 10pt;
+    /*border: 1px solid #808080;*/
+    color: black;
     float: right;
     text-decoration: none;
-    padding: 10px 10px;
-    margin: 25px 0px;
+    padding: 5px 5px;
+    margin: 0px 0px;
     border-radius: 10px;
+    background-color: gray;
+}
+#sign-in-status{
+    font-size: 10pt;
+    color: black;
+    float: right;
+    text-decoration: none;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 10px;
+    background-color: gray;
 }
 
 .main_content {
@@ -83,6 +105,7 @@ a:visited{
     height: 300px;
     padding: 5px 5px;
     margin: 5px;
+    min-height: 100%;
 }
 
 .main_content img{
@@ -118,64 +141,35 @@ h1{
     padding: 5px 5px;
     list-style-type: square;
 }
-
-#start_students {
-    border: 1px solid #808080;
-    font-size: 18px;
-    float: left;
-    color: #6dc066;
-    background-color: #000066;
+#copyright{
+    font-size: 10pt;
+    color: black;
     text-decoration: none;
-    padding: 15px 15px;
-    margin: 25px 10px 25px 35px;
-    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    float: left;
+    border-radius: 0px;
 }
 
-#start_instructors{
-    border: 1px solid #808080;
-    font-size: 18px;
-    float: left;
-    color: #6dc066;
-    background-color: #4d4d4d;
+#about,#support,#contactus{
+    font-size: 10pt;
+    color: black;
+    float:right;
     text-decoration: none;
-    padding: 15px 15px;
-    margin: 25px 10px;
-    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 0px;
+}
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
 }
 
-#start_students:hover{
-    transform: scale(0.8, 0.8);
-}
-
-#start_instructors:hover{
-    transform: scale(0.8,0.8);
-}
-
-.page_footer p{
-    color:#4d4d4d;
-    font-weight: 500;
-}
-
-.page_footer ul li{
-    color: #808080;
-    font-weight: 100;
-}
-
-.About_column{
-    float: left;
-    margin: 5px 20px 5px 20px;
-}
-
-.Support_column{
-    float: left;
-    margin: 5px 10px;
-}
-
-.copywrite{
-    float: right;
-    margin: 0px;
-}
-/* make footer clear floated element */
 .page_footer{
     clear:both;
 }

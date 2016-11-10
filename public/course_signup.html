@@ -12,25 +12,20 @@
     <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
     <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+    <link rel="stylesheet" href="mystyle.css"/>
 </head>
 <body>
 <div id="header">
-    <span id="sign-in-status"></span> | <a href="javascript:firebase.auth().signOut()">Sign Out</a>
+    <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
+    <br> <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
 </div>
 <div id="firebaseui-auth-container"></div>
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 <link rel="stylesheet" type="text/css" href="mystyle.css">
-<div class="header">
-    <div id="image">
-        <br><br>
-        <a href="landingpage.html"><img src="wblogo.png" alt="logo" /></a>
-        <br/> <br/><br/><br/>
+
         <div id="coursesignup"></div>
-        <br>
-    </div>
-</div>
 <div id="footer">
-    Debug: <span id="account-details"></span>
+   <!-- Debug: <span id="account-details"></span -->
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
