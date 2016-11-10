@@ -21,11 +21,8 @@
 <div id="firebaseui-auth-container"></div>
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 
-<div id ="hwpublish">
-    <form id="newItemForm" action="/upload" method="post" enctype="multipart/form-data"><input type="text" id="newTodo" name="todoText" />
-        <input type="file" id="newFile" name="img" /> <br/>
-        <input type="submit" value="Upload" /></form>
-</div>
+<div id ="hwretrieve"> </div>
+
 <div id="footer">
     <!-- Debug: <span id="account-details"></span -->
 </div>
@@ -61,10 +58,11 @@
             var photoURL = user.photoURL;
             var uid = user.uid;
             userName = user.uid;
-           // ReactDOM.render(<RegisterPage  />, document.getElementById('hwpublish'));
+            ReactDOM.render(<hwretrivePage/>, document.getElementById('hwretrieve'));
 
             var providerData = user.providerData;
             user.getToken().then(function(accessToken) {
+
                 document.getElementById('sign-in-status').textContent = "Welcome, " + displayName;
                 document.getElementById('account-details').textContent = JSON.stringify({
                     displayName: displayName,
@@ -100,47 +98,42 @@
             var ui = new firebaseui.auth.AuthUI(firebase.auth());
             // The start method will wait until the DOM is loaded.
             ui.start('#firebaseui-auth-container', uiConfig);
-            $("#hwpublish").hide();
+            $("#hwretrieve").hide();
         }
     }, function(error) {
         console.log(error);
     });
 
-    $('#newItemForm').submit(function(e)
-    {
-        e.preventDefault();
-        var formData = new FormData($("#newItemForm")[0]);
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "/upload",
-            data: formData,
-            processData: false,
-            contentType: false
-
-        });
-        alert("File Uploaded.");
+    var fireRef = firebase.database().ref('homework');
+    fireRef.on("child_added",function(v){
+        createhwlist(v.val().text,v.val().img);
     });
 
-/*
-    var HWpublish = React.createClass({
+    function createhwlist(text, img)
+    {
+        if(img)
+        {
+            $('#hwretrieve').append(
+                    '<div> <a href='+img+ ' id="hwfile">'+text+'</a> </div>'
+            );
+        }
+    };
+
+    var hwretrivePage = React.createClass({
         render: function() {
             return (
-                    <div className="hwpublishPage">
-                            <label> Home Work </label>
-                            <input type="text" id="newTodo" name="todoText" />
-                            <input type="file" id="newFile" text="" name="img" /> <br/>
-                            <button type="submit" onClick={this.upload}> Upload </button>
+                    <div className="HWretrivePage">
+                        <h3> Homework List </h3>
+                        <div id="hwlist"> </div>
                     </div>
             );
         },
     });
 
     ReactDOM.render(
-            <hwpublishPage  />,
-            document.getElementById('hwpublish')
+            <hwretrivePage/>,
+            document.getElementById('hwretrieve')
     );
-*/
 
 </script>
 

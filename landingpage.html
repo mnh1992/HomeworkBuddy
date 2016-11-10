@@ -22,7 +22,18 @@ A new user can also make an account on whiteboard. -->
     <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-<div id="main"></div>
+<div id="header">
+    <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
+    <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
+</div>
+
+<div id="firebaseui-auth-container"></div>
+<div id="landingpage"></div>
+<!--iv id="footer">
+    Debug: <span id="account-details"></span
+</div-->
+
+<!-- div id="main"></div -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
@@ -30,6 +41,10 @@ A new user can also make an account on whiteboard. -->
 <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.css" />
 <script type="text/babel" src="landingpage.js"></script>
 <!--script src="old/JSFile.js"></script-->
 </body>
