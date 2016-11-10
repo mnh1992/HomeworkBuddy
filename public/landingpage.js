@@ -128,16 +128,6 @@ var MainPage = React.createClass({
                         </div>
                     </article>
                 </section>
-
-                {/*<div class="getting_started">
-                    <h1> Getting Started </h1>
-                    <div id="start_students">
-                        <a href="register.html"> I am a Student</a>
-                    </div>
-                    <div id="start_instructors">
-                        <a href="register.html"> I am an Instructor</a>
-                    </div>
-                </div>*/}
                 <footer class="page_footer">
                     <div class="About_column">
                         <ul>
