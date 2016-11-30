@@ -46,8 +46,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#header").hide();
         // FirebaseUI config.
         var uiConfig = {
-            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
-            //'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
+            //'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
             'signInOptions': [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -125,8 +125,8 @@ getInitialState: function () {
 
         firebase.auth().currentUser.getToken().then(function(idToken) {
             $.ajax({
-                url: "http://localhost:3000/coursesignup",
-                //url: "http://whitebd.herokuapp.com/coursesignup",
+                //url: "http://localhost:3000/coursesignup",
+                url: "http://whitebd.herokuapp.com/coursesignup",
                 type: 'PUT',
                 data: {user: user, school: school, course: course,token: idToken},
                 success: function (data) {
