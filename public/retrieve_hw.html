@@ -15,12 +15,21 @@
 </head>
 <body>
 <div id="header">
+    <a id=home href="landingpage.html">Home </a>
     <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
     <br> <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
+    <br> <br>
+    <!--div className="btn2">
+        <button type="submit"><a href="landingpage.html">Home</a></button>
+    </div-->
+    <br> <br>
 </div>
 <div id="firebaseui-auth-container"></div>
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 
+<div className="HWretrivePage">
+    <h3> Homework List </h3>
+</div>
 <div id ="hwretrieve"> </div>
 
 <div id="footer">
@@ -50,6 +59,7 @@
     var userName;
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+
             $("#firebaseui-auth-container").hide();
             // User is signed in.
             var displayName = user.displayName;
@@ -105,16 +115,21 @@
     });
 
     var fireRef = firebase.database().ref('homework');
-    fireRef.on("child_added",function(v){
-        createhwlist(v.val().text,v.val().img);
+    fireRef.on("child_added", function (v) {
+            createhwlist(v);
     });
 
-    function createhwlist(text, img)
+    function createhwlist(snap)
     {
-        if(img)
+        var desc=snap.val().Desc;
+        var file=snap.val().File;
+        var user=snap.val().User;
+        var course=snap.val().Course;
+        if(file && user==userName)
         {
             $('#hwretrieve').append(
-                    '<div> <a href='+img+ ' id="hwfile">'+text+'</a> </div>'
+                    '<div> <span> <b>Subject:</b> '+ course + ' - <b>Homework:</b> </span> <a href='+file+ ' id="hwfile">'+desc+'</a> </div>'
+
             );
         }
     };

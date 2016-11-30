@@ -15,6 +15,7 @@
 </head>
 <body>
 <div id="header">
+    <a id=home href="landingpage.html">Home </a>
     <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
     <br> <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
 </div>
@@ -22,9 +23,30 @@
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 
 <div id ="hwpublish">
-    <form id="newItemForm" action="/upload" method="post" enctype="multipart/form-data"><input type="text" id="newTodo" name="todoText" />
-        <input type="file" id="newFile" name="img" /> <br/>
-        <input type="submit" value="Upload" /></form>
+
+    <div>
+        <H3> Homework Upload </H3>
+    </div>
+        <form id="newItemForm" action="/upload" method="post" enctype="multipart/form-data">
+       <br/>
+        <div>
+            <label>Homework</label>
+            <input type="text" id="newTodo" placeholder="Homework name" name="todoText" />
+        </div>
+        <div>
+            <label>Course</label>
+            <input type="text" id="course" placeholder="Course name"name="course" />
+        </div>
+        <div>
+            <label>File</label>
+            <input type="file" id="newFile" name="img" />
+        </div>
+        <div>
+            <button type="submit" >Submit</button>
+            <!--input type="submit" value="Upload" /-->
+        </div>
+    </form>
+
 </div>
 <div id="footer">
     <!-- Debug: <span id="account-details"></span -->
@@ -109,17 +131,20 @@
     $('#newItemForm').submit(function(e)
     {
         e.preventDefault();
-        var formData = new FormData($("#newItemForm")[0]);
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "/upload",
-            data: formData,
-            processData: false,
-            contentType: false
+        firebase.auth().currentUser.getToken().then(function(idToken) {
+            var formData = new FormData($("#newItemForm")[0]);
+            formData.append("token", idToken)
+            console.log(formData);
+            $.ajax({
+                type: "POST",
+                url: "/upload",
+                data: formData,
+                processData: false,
+                contentType: false
 
+            });
+            alert("File Uploaded.");
         });
-        alert("File Uploaded.");
     });
 
 /*

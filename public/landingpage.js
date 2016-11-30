@@ -49,8 +49,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#header").hide();
         // FirebaseUI config.
         var uiConfig = {
-            //'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
-            'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
+            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            //'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
             'signInOptions': [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
