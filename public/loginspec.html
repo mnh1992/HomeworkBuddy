@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.5.2</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.5.2/jasmine_favicon.png">
+    <link rel="stylesheet" href="lib/jasmine-2.5.2/jasmine.css">
+
+    <script src="lib/jasmine-2.5.2/jasmine.js"></script>
+    <script src="lib/jasmine-2.5.2/jasmine-html.js"></script>
+    <script src="lib/jasmine-2.5.2/boot.js"></script>
+
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-with-addons.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+
+</head>
+
+<body>
+<div id="content"></div>
+<!--script type="text/babel." src="login.js"></script-->
+<script type="text/babel">
+
+
+"use strict";
+
+firebase.initializeApp({
+    serviceAccount: "private_key.json",
+    databaseURL: "https://whiteboard-10ec5.firebaseio.com"
+});
+
+var user;
+var pass;
+
+var Login = React.createClass({
+    render: function() {
+    return (
+        <div className="login">
+        <h1> Login Page </h1>
+        <h3> Please enter your Username and Password </h3>
+        <div>
+        <label>Username: </label>
+        <input type="text" id="userid" name="userid"/>
+        </div>
+        <div>
+            <label>Password: </label>
+            <input type="password" id="password" name="password"/>
+        </div>
+        <div id="btn2" name="btn2">
+            <button type="submit" onClick={this.login} >Submit</button>
+        </div>
+        <div id="reg">
+            <a id="coursereg" href="course_signup.html"></a>
+        </div>
+        </div>
+    );
+    },
+
+    login: function() {
+        alert("User " + user);
+       // user= $('#userid').val();
+        //pass = $('#password').val();
+        this.dbRef = firebase.database().ref("users/" + user);
+        this.dbRef.once("value").then(function(snapshot) {
+            if (snapshot.exists()) {
+                if (pass !== snapshot.child("Passwd").val()) {
+                    alert("Invalid password. Retry!");
+                    return;
+                }
+                else {
+                    var datetime = Date();
+                    alert("Login Successful!");
+                    window.localStorage.setItem('username', user);
+                    document.getElementById("coursereg").innerHTML = "Click here for Course Registration";
+                    document.getElementById("fileupload").innerHTML = "Click here for uploading documents";
+                    dbRef.push({logintime: datetime});
+                    return;
+                }
+            }
+            else
+            {
+                alert("Invalid user id. Please signup.");
+            }
+        });
+        }
+    });
+
+    ReactDOM.render(
+    <Login/>,
+    document.getElementById('content')
+    );
+
+//Testing
+describe('Login', function() {
+    var TestUtils = React.addons.TestUtils;
+    var loginComponent, element, renderedDOM;
+
+    beforeEach(function(){
+        element = React.createElement(Login);
+        loginComponent = TestUtils.renderIntoDocument(element);
+    });
+
+    it("uses fireBase to valideate the passowrd", function(){
+
+        let button = TestUtils.scryRenderedDOMComponentsWithTag(loginComponent, "button")[0];
+        user="nhem";
+        pass="234";
+
+        TestUtils.Simulate.click(button);
+    });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suggestions Are Welcome!</title>
+
+    <!--https://script.google.com/macros/d/1BXyr1w7H7dm8bDdsOsaHoTI4T326VbMwEbGudtTRj__zj1i8_623fzzC/edit-->
+    <link rel="stylesheet" href="suggestions.css"/>
+</head>
+<body>
+<form class="main" id="form" novalidate="novalidate" style="max-width: 480px;margin: 40px auto;">
+    <div id="header">
+        <div class="row">
+            <div class="col s12">
+                <h5 class="center-align teal-text">Submit Suggestions Directly to Our Google Drive</h5>
+            </div>
+        </div>
+        <label for="name">Name</label>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="name" type="text" name="Name" class="validate" required="" aria-required="true">
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <label for="email">Email Address</label>
+            <div class="input-field col s12">
+                <input id="email" type="email" name="Email" class="validate" required="" aria-required="true">
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <div class="row">
+            <div class="file-field input-field col s12">
+                <div class="btn">
+                    <span>File</span>
+                    <input id="files" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Select a file on your computer">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <button class="waves-effect waves-light btn submit-btn" type="submit" onclick="submitForm(); return false;">Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12" id = "progress">
+            </div>
+        </div>
+    </div>
+    <div id="success" style="display:none">
+        <h5 class="left-align teal-text">File Uploaded</h5>
+        <p>Your file has been successfully uploaded.</p>
+        <p>The <a href="http://www.labnol.org/internet/file-upload-google-forms/29170/">pro version</a> (see <a href="http://j.mp/GoogleFormsDemo">demo form</a>) includes a visual drag-n-drop form builder, CAPTCHAs, the form responses are saved in a Google Spreadsheet and respondents can upload multiple files of any size.</p>
+        <p class="center-align"><a  class="btn btn-large" href="https://gum.co/GA14?wanted=true" target="_blank">Upgrade to Pro</a></p>
+    </div>
+</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://gumroad.com/js/gumroad.js"></script>
+<script>
+var file,
+reader = new FileReader();
+
+//reader.onloadend = function(e) {
+//if (e.target.error != null) {
+//showError("File " + file.name + " could not be read.");
+//return;
+//} else {
+//google.script.run
+//.withSuccessHandler(showSuccess)
+//.uploadFileToGoogleDrive(e.target.result, file.name, $('input#name').val(), $('input#email').val());
+//}
+//};
+//
+//
+//
+//var request = require('request');
+//var fs = require('fs');
+//request({
+//            method: 'PUT',
+//            preambleCRLF: true,
+//            postambleCRLF: true,
+//            uri: 'http://yourdomain/file',
+//            multipart: [
+//                {
+//                    'content-type': 'application/pdf'
+//                    body: fs.createReadStream('image.png')
+//                }
+//            ]
+//        },
+//        function (error, response, body) {
+//            if (error) {
+//                return console.error('upload failed:', error);
+//            }
+//            console.log('Upload successful!  Server responded with:', body);
+//        });
+//
+//function showSuccess(e) {
+//if (e === "OK") {
+//$('#header').hide();
+//$('#success').show();
+//} else {
+//showError(e);
+//}
+//}
+
+//actually the onclick listener for the submit button
+function submitForm()
+{
+    var files = $('#files')[0].files;
+
+    if (files.length === 0) {
+    showError("Please select a file to upload");
+
+    return;
+    }
+
+    file = files[0];
+
+    if (file.size > 1024 * 1024 * 5) {
+        showError("The file size should be < 5 MB. Please <a href='http://www.labnol.org/internet/file-upload-google-forms/29170/' target='_blank'>upgrade to premium</a> for receiving larger files in Google Drive");
+        return;
+    }
+    var formData=new FormData();
+    formData.append('upload',file,file.name);
+
+    showMessage("Uploading file..");
+
+    //reader.readAsDataURL(file);
+
+}
+$.ajax({
+    url:'/suggestionsInput',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(data){
+        console.log('upload successful!');
+    }
+});
+
+//function showError(e) {
+//$('#progress').addClass('red-text').html(e);
+//}
+//
+//function showMessage(e) {
+//$('#progress').removeClass('red-text').html(e);
+//}
+
+</script>
+
+</body>
+</html>
