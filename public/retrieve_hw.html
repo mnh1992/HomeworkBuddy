@@ -18,36 +18,20 @@
     <a id=home href="landingpage.html">Home </a>
     <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
     <br> <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
+    <br> <br>
+    <!--div className="btn2">
+        <button type="submit"><a href="landingpage.html">Home</a></button>
+    </div-->
+    <br> <br>
 </div>
 <div id="firebaseui-auth-container"></div>
 <!-- This page have the course_signup information. Once logged in this link is clickable -->
 
-<div id ="hwpublish">
-
-    <div>
-        <H3> Homework Upload </H3>
-    </div>
-        <form id="newItemForm" action="/upload" method="post" enctype="multipart/form-data">
-       <br/>
-        <div>
-            <label>Homework</label>
-            <input type="text" id="newTodo" placeholder="Homework name" name="todoText" />
-        </div>
-        <div>
-            <label>Course</label>
-            <input type="text" id="course" placeholder="Course name"name="course" />
-        </div>
-        <div>
-            <label>File</label>
-            <input type="file" id="newFile" name="img" />
-        </div>
-        <div>
-            <button type="submit" >Submit</button>
-            <!--input type="submit" value="Upload" /-->
-        </div>
-    </form>
-
+<div className="HWretrivePage">
+    <h3> Homework List </h3>
 </div>
+<div id ="hwretrieve"> </div>
+
 <div id="footer">
     <!-- Debug: <span id="account-details"></span -->
 </div>
@@ -75,6 +59,7 @@
     var userName;
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+
             $("#firebaseui-auth-container").hide();
             // User is signed in.
             var displayName = user.displayName;
@@ -83,10 +68,11 @@
             var photoURL = user.photoURL;
             var uid = user.uid;
             userName = user.uid;
-           // ReactDOM.render(<RegisterPage  />, document.getElementById('hwpublish'));
+            ReactDOM.render(<hwretrivePage/>, document.getElementById('hwretrieve'));
 
             var providerData = user.providerData;
             user.getToken().then(function(accessToken) {
+
                 document.getElementById('sign-in-status').textContent = "Welcome, " + displayName;
                 document.getElementById('account-details').textContent = JSON.stringify({
                     displayName: displayName,
@@ -104,6 +90,7 @@
             $("#header").hide();
             // FirebaseUI config.
             var uiConfig = {
+                //'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
                 'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
                 'signInOptions': [
                     // Leave the lines as is for the providers you want to offer your users.
@@ -121,50 +108,47 @@
             var ui = new firebaseui.auth.AuthUI(firebase.auth());
             // The start method will wait until the DOM is loaded.
             ui.start('#firebaseui-auth-container', uiConfig);
-            $("#hwpublish").hide();
+            $("#hwretrieve").hide();
         }
     }, function(error) {
         console.log(error);
     });
 
-    $('#newItemForm').submit(function(e)
-    {
-        e.preventDefault();
-        firebase.auth().currentUser.getToken().then(function(idToken) {
-            var formData = new FormData($("#newItemForm")[0]);
-            formData.append("token", idToken)
-            console.log(formData);
-            $.ajax({
-                type: "POST",
-                url: "/upload",
-                data: formData,
-                processData: false,
-                contentType: false
-
-            });
-            alert("File Uploaded.");
-        });
+    var fireRef = firebase.database().ref('homework');
+    fireRef.on("child_added", function (v) {
+            createhwlist(v);
     });
 
-/*
-    var HWpublish = React.createClass({
+    function createhwlist(snap)
+    {
+        var desc=snap.val().Desc;
+        var file=snap.val().File;
+        var user=snap.val().User;
+        var course=snap.val().Course;
+        if(file && user==userName)
+        {
+            $('#hwretrieve').append(
+                    '<div> <span> <b>Subject:</b> '+ course + ' - <b>Homework:</b> </span> <a href='+file+ ' id="hwfile">'+desc+'</a> </div>'
+
+            );
+        }
+    };
+
+    var hwretrivePage = React.createClass({
         render: function() {
             return (
-                    <div className="hwpublishPage">
-                            <label> Home Work </label>
-                            <input type="text" id="newTodo" name="todoText" />
-                            <input type="file" id="newFile" text="" name="img" /> <br/>
-                            <button type="submit" onClick={this.upload}> Upload </button>
+                    <div className="HWretrivePage">
+                        <h3> Homework List </h3>
+                        <div id="hwlist"> </div>
                     </div>
             );
         },
     });
 
     ReactDOM.render(
-            <hwpublishPage  />,
-            document.getElementById('hwpublish')
+            <hwretrivePage/>,
+            document.getElementById('hwretrieve')
     );
-*/
 
 </script>
 

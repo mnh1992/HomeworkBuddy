@@ -16,7 +16,9 @@
     "express": "4.13.3",
     "firebase": "3.5.2",
     "body-parser": "1.15.2",
-    "sentiment": "2.0.0"
+    "sentiment": "2.0.0",
+    "google-cloud": "0.43.0",
+    "multer": "1.2.0"
   },
   "keywords": [
     "SWE432"

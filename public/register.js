@@ -22,7 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var photoURL = user.photoURL;
         var uid = user.uid;
         userName = user.uid;
-        ReactDOM.render(<RegisterPage  />, document.getElementById('content'));
+        ReactDOM.render(<RegisterPage  />, document.getElementById('regContent'));
 
         var providerData = user.providerData;
         user.getToken().then(function(accessToken) {
@@ -44,6 +44,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         // FirebaseUI config.
         var uiConfig = {
             'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            //'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
             'signInOptions': [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -60,7 +61,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
-        $("#content").hide();
+        $("#regContent").hide();
     }
 }, function(error) {
     console.log(error);
@@ -84,8 +85,10 @@ var RegisterPage = React.createClass({
     render: function() {
         return (
             <div className="registerPage">
-                <h1>Signup for WhiteBoard</h1>
-                <h3>Please  fill in the follwing information</h3>
+                <br/>
+                <h3>Signup for WhiteBoard<br/>
+                    Please  fill in the follwing information</h3>
+                <br/>
                 <div>
                     <label>First Name:</label>
                     <input type="text" id="fname" name="firstname" />
@@ -111,6 +114,8 @@ var RegisterPage = React.createClass({
                 <div id="btn1">
                     <button type="submit" onClick={this.register}>Submit</button>
                 </div>
+                <br/>
+
                 <div id="status">
                     <label type="text" name="status">  </label>
                 </div>
@@ -127,8 +132,9 @@ var RegisterPage = React.createClass({
         var email = $('#email').val();
 
         firebase.auth().currentUser.getToken().then(function(idToken) {
-            //$.ajax({url: "http://whitebd.herokuapp.com/register",
+
             $.ajax({
+                //url: "http://localhost:3000/register",
                 url: "http://whitebd.herokuapp.com/register",
                 type: 'PUT',
                 data: { firstn: first, lastn: last, role: role, email: email,token: idToken},

@@ -46,7 +46,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#header").hide();
         // FirebaseUI config.
         var uiConfig = {
-            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            //'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
             'signInOptions': [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -83,9 +84,10 @@ getInitialState: function () {
     render: function () {
         return (
             <div className="mainHeader">
-                <p id="username"> User:  {user} </p>
-                <h1>Course Signup Page</h1>
-                <h2>Select your school and enter the course code</h2>
+                <br/>
+                <h3>Course Signup Page <br/>
+                    Select your school and enter the course code</h3>
+                <br/>
                 <div id="controls">
                     <label>School: </label>
                     <select id="school">
@@ -100,6 +102,8 @@ getInitialState: function () {
                     <br/>
                     <button id="csignup" onClick={this.course_signup}> Signup</button>
                 </div>
+                <br/>
+
             </div>
         );
     },
@@ -117,10 +121,11 @@ getInitialState: function () {
         var school = $('#school').val();
         var course = $('#course').val();
         //Reference the course table in firebase
-       // $.ajax({url: "http://whitebd.herokuapp.com/coursesignup",
-        var user = localStorage.getItem('username');
+
+
         firebase.auth().currentUser.getToken().then(function(idToken) {
             $.ajax({
+                //url: "http://localhost:3000/coursesignup",
                 url: "http://whitebd.herokuapp.com/coursesignup",
                 type: 'PUT',
                 data: {user: user, school: school, course: course,token: idToken},

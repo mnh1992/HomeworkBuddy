@@ -15,17 +15,20 @@ other info required for signup -->
     <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
     <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
-
+    <link rel="stylesheet" href="mystyle.css"/>
 </head>
 <body>
 <div id="header">
-    <span id="sign-in-status"></span> | <a href="javascript:firebase.auth().signOut()">Sign Out</a>
+    <a id=home href="landingpage.html">Home </a>
+    <a href="javascript:firebase.auth().signOut()" id="signout">Sign Out</a> <span id="sign-in-status"></span>
+    <!-- br> <br><a href="landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a-->
+    <br> <br><a href="http://localhost:3000/landingpage.html"><img src="wblogo.png" width="200px" height="100px" lt="logo" /></a>
 </div>
+<div id="btn2"><a href="http://localhost:3000/landingpage.html"></a></div>
 <div id="firebaseui-auth-container"></div>
-
-<div id="content"></div>
+<div id="regContent"></div>
 <div id="footer">
-    Debug: <span id="account-details"></span>
+    <!-- Debug: <span id="account-details"></span -->
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -34,42 +37,6 @@ other info required for signup -->
 <script src="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.js"></script>
 <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.css" />
 
-<script type="text/babel" src="register.js"></script>
-
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
-    <title>WhiteBoard Site</title>
-    <script src="build/react.js"></script>
-    <script src="build/react-dom.js"></script>
-    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
-    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
-    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
-    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
-    <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
-    <div class="header">
-        <div id="image">
-            <a href="landingpage.html"><img src="wblogo.png" alt="logo" /></a>
-            <br/> <br/>
-        </div>
-    </div>
-</head>
-<body>
-<div id="regContent"></div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
 <script type="text/babel" src="register.js"></script>
 
 </body>

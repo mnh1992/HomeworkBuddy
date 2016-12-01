@@ -71,15 +71,19 @@ function sendUploadToGCS (req, res, next) {
 var fireRef = firebase.database().ref('homework');
 //Make a new one
 app.post('/upload', uploader.single("img"), sendUploadToGCS, function (req, res, next) {
-    var data = {"text" : req.body.todoText};
+    var data = {"desc" : req.body.todoText, "user" : req.body.token, "course" : req.body.course};
     if(req.file)
-        data.img = getPublicUrl(req.file.cloudStorageObject);
-    console.log(data.img + " "+ data.text);
-    fireRef.push(data, function () {
-        res.send("OK!");
-    }).catch(function(){
-        res.status(403);
-        res.send();
+        data.file = getPublicUrl(req.file.cloudStorageObject);
+    firebase.auth().verifyIdToken(data.user).then(function (decodedToken) {
+        var uid = decodedToken.uid;
+        data.user=uid;
+        fireRef.push({
+            User: data.user,
+            Course: data.course,
+            Desc: data.desc,
+            File: data.file
+        });
+        res.send("0");
     });
 });
 

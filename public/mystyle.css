@@ -77,3 +77,37 @@ button {
     z-index: 0;
     opacity: 1;
 }
+
+#home{
+    font-size: 10pt;
+    /*border: 1px solid #808080;*/
+    color: Black;
+    float: Left;
+    text-decoration: none;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 10px;
+    background-color: White;
+}
+
+#signout{
+    font-size: 10pt;
+    /*border: 1px solid #808080;*/
+    color: black;
+    float: right;
+    text-decoration: none;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 10px;
+    background-color: gray;
+}
+#sign-in-status{
+    font-size: 10pt;
+    color: black;
+    float: right;
+    text-decoration: none;
+    padding: 5px 5px;
+    margin: 0px 0px;
+    border-radius: 10px;
+    background-color: gray;
+}

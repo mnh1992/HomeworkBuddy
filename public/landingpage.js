@@ -28,11 +28,11 @@ firebase.auth().onAuthStateChanged(function(user) {
         var photoURL = user.photoURL;
         var uid = user.uid;
         userName = user.uid;
-        ReactDOM.render(<MainPage />, document.getElementById('content'));
+        ReactDOM.render(<MainPage />, document.getElementById('landingpage'));
 
         var providerData = user.providerData;
         user.getToken().then(function(accessToken) {
-            document.getElementById('sign-in-status').textContent = "Welcome, " + displayName;
+            document.getElementById('sign-in-status').textContent = "Welcome: " + displayName;
             document.getElementById('account-details').textContent = JSON.stringify({
                 displayName: displayName,
                 email: email,
@@ -49,7 +49,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         $("#header").hide();
         // FirebaseUI config.
         var uiConfig = {
-            'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            //'signInSuccessUrl': 'http://localhost:3000/landingpage.html', //URL that we get sent BACK to after logging in
+            'signInSuccessUrl': 'http://whitebd.herokuapp.com/landingpage.html',
             'signInOptions': [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -66,7 +67,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
-        $("#content").hide();
+        $("#landingpage").hide();
     }
 }, function(error) {
     console.log(error);
@@ -88,35 +89,25 @@ var MainPage = React.createClass({
         return (
             <div className="mainContent">
                 <header>
-                    <a href="landingpage.html"><img src="wblogo.png" alt="logo here" width="100px" height="75px" class="logo"/></a>
                     <ul>
-                        <li><a href="about.html" id="about_us"> About Us </a></li>
-                        <li> <a href="" id ="product"> Product </a></li>
-                        <li> <a href="" id="students_speak"> Students Speak </a></li>
-                        <li> <a href="" id="support"> Support </a></li>
+                        <li> <a href="register.html" id="sign_up"> Register </a></li>
+                        <li> <a href="course_signup.html" id="coursesignup"> Course Signup </a></li>
                         <li> <a href="signup_stat.html" id="statistics"> Statistics </a></li>
-                        <li> <a href="publish_hw.html" id="Homework"> Upload Homework </a></li>
-                        <li> <a href="###" id="RHomework"> Retrieve Homework </a></li>
+                        <li> <a href="publish_hw.html" id="homework"> Upload Homework </a></li>
+                        <li> <a href="retrieve_hw.html" id="retrievehw"> Retrieve Homework </a></li>
+
+
                     </ul>
-                    <div id="sign_up">
-                        <a href= "register.html"> Sign Up </a>
-                    </div>
-                    <div id="login">
-                        <a href="login.html"> Login </a>
-                    </div>
-                    <div id="CourseSignup">
-                        <a href="course_signup.html"> Course Signup </a>
-                    </div>
                 </header>
 
 
                 <section className="main_content">
-                    <article>
+                    <article><br/><br/>
                         <header>
                             <h2>Learning Actively</h2>
                             <h3>Your Homework Management System</h3>
                         </header>
-                        <img src="wbimage.jpg" alt ="Some kind of image with go here" width= "250px" height="200px"/>
+                        <img src="wbimage.jpg" alt ="Some kind of image with go here" width= "200px" height="150px"/>
                         <div class="right_side_main">
                             <ul>
                                 <li> Q&A form fosters interactive learning </li>
@@ -129,32 +120,15 @@ var MainPage = React.createClass({
                     </article>
                 </section>
 
-                <div class="getting_started">
-                    <h1> Getting Started </h1>
-                    <div id="start_students">
-                        <a href="register.html"> I am a Student</a>
-                    </div>
-                    <div id="start_instructors">
-                        <a href="register.html"> I am an Instructor</a>
-                    </div>
-                </div>
-                <footer class="page_footer">
-                    <div class="About_column">
-                        <ul>
-                            <li> About </li>
-                            <li> Who we are </li>
-                            <li> Careers </li>
-                        </ul>
 
-                    </div>
-                    <div class="Support_column">
+                <footer class="footer">
+                    <br/> <br/> <br/> <br/> <br/>
                         <ul>
-                            <p> Support </p>
-                            <li> Help </li>
-                            <li> Contact Us </li>
+                            <li><div id="copyright">(C) Copyright 2016 WhiteBoard Educational</div></li>
+                            <li><a href="About.html" id="about">  About us </a></li>
+                            <li><a href="Support.html" id="support">  Support </a></li>
+                            <li><a href="ContactUs.html" id="contactus">  Contact Us </a></li>
                         </ul>
-                    </div>
-                    <div id="copywrite">Copywrite 2016 WhiteBoard Educational</div>
                 </footer>
             </div>
         );
@@ -163,5 +137,5 @@ var MainPage = React.createClass({
 
 ReactDOM.render(
     <MainPage  />,
-    document.getElementById('main')
+    document.getElementById('landingpage')
 );
